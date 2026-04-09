@@ -51,3 +51,11 @@
   border-radius: 6px;
   cursor: pointer;
 }
+.completed-block {
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  background-color: #e8f5e9;
+  font-size: 18px;
+}

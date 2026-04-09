@@ -46,6 +46,10 @@ function App() {
         />
         <button onClick={addExperiment}>Добавить</button>
       </div>
+      <div className="completed-block">
+        <strong>Завершённых экспериментов:</strong>{' '}
+        {experiments.filter(exp => exp.status === 'Завершён').length}
+      </div>
       <div className="experiments-grid">
         {experiments.map(exp => (
           <div key={exp.id} className="experiment-card">
