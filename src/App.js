@@ -13,6 +13,7 @@ function App() {
     });
 
   const [inputValue, setInputValue] = useState('');
+  const [filter, setFilter] = useState('Все');
 
   useEffect(() => {
     localStorage.setItem('experiments', JSON.stringify(experiments));
@@ -33,6 +34,11 @@ function App() {
     setInputValue('');
   };
 
+  const filteredExperiments = experiments.filter(exp => {
+    if (filter === 'Все') return true;
+    return exp.status === filter;
+  });
+
   return (
     <div className="app">
       <h1>Учёт экспериментов</h1>
@@ -50,8 +56,17 @@ function App() {
         <strong>Завершённых экспериментов:</strong>{' '}
         {experiments.filter(exp => exp.status === 'Завершён').length}
       </div>
+      <div className="filter-block">
+      <label>Фильтр по статусу: </label>
+      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option>Все</option>
+        <option>План</option>
+        <option>В процессе</option>
+        <option>Завершён</option>
+      </select>
+    </div>
       <div className="experiments-grid">
-        {experiments.map(exp => (
+        {filteredExperiments.map(exp => (
           <div key={exp.id} className="experiment-card">
             <div className="card-name">{exp.name}</div>
             <div className="card-status">{exp.status}</div>
