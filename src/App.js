@@ -39,6 +39,12 @@ function App() {
     return exp.status === filter;
   });
 
+  const changeStatus = (id, newStatus) => {
+    setExperiments(experiments.map(exp =>
+      exp.id === id ? { ...exp, status: newStatus } : exp
+    ));
+  };
+
   return (
     <div className="app">
       <h1>Учёт экспериментов</h1>
@@ -69,7 +75,14 @@ function App() {
         {filteredExperiments.map(exp => (
           <div key={exp.id} className="experiment-card">
             <div className="card-name">{exp.name}</div>
-            <div className="card-status">{exp.status}</div>
+            <select
+              value={exp.status}
+              onChange={(e) => changeStatus(exp.id, e.target.value)}
+              className="status-select">
+              <option>План</option>
+              <option>В процессе</option>
+              <option>Завершён</option>
+            </select>
             <button onClick={() => deleteExperiment(exp.id)}>Удалить</button>
           </div>
         ))}
